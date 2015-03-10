@@ -1,0 +1,52 @@
+﻿
+<link rel="import" href="/components/polymer/polymer.html" />
+<link rel="import" href="/components/at-core-theme/at-core-theme.html" />
+
+<polymer-element name="at-form-input">
+  <template>
+    <at-core-theme></at-core-theme>
+    <div class="ui left labeled input {{ {fluid: fluid, error: !valid} | tokenList }}">
+      <div id="label" class="ui label">{{ label }}</div>
+      <input id="input" name="{{ name }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" disabled?="{{ disabled }}" />
+    </div>
+  </template>
+  <script>
+    Polymer('at-form-input', {
+      publish: {
+        fluid: {
+          value: false,
+          reflect: true
+        },
+        value: {
+          value: '',
+          reflect: true
+        },
+        name: {
+          value: '',
+          reflect: true
+        },
+        type: {
+          value: 'text',
+          reflect: true
+        },
+        disabled: {
+          value: false,
+          reflect: true
+        },
+        valid: {
+          value: true,
+          reflect: true
+        },
+        label: {
+          value: '',
+          reflect: true
+        },
+        placeholder: {
+          value: '',
+          reflect: true
+        }
+      },
+      ready: function () { }
+    });
+  </script>
+</polymer-element>

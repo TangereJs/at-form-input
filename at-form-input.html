@@ -5,8 +5,8 @@
 <polymer-element name="at-form-input">
   <template>
     <at-core-theme></at-core-theme>
-    <div class="ui left labeled input {{ {fluid: fluid, error: !valid} | tokenList }}">
-      <div id="label" class="ui label">{{ label }}</div>
+    <div class="ui input {{ {fluid: fluid, error: !valid} | tokenList }}">
+      <div id="label" class="ui pointing below label">{{ label }}</div>
       <input id="input" name="{{ name }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" disabled?="{{ disabled }}" />
     </div>
   </template>

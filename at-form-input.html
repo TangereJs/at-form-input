@@ -4,9 +4,16 @@
 
 <polymer-element name="at-form-input">
   <template>
+    <style>
+      .customLabel{
+        padding-bottom: 5px;
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+    </style>
     <at-core-theme></at-core-theme>
     <div class="ui input {{ {fluid: fluid, error: !valid} | tokenList }}">
-      <div id="label" class="ui pointing below label">{{ label }}</div>
+      <div id="label" class="ui customLabel">{{ label }}</div>
       <input id="input" name="{{ name }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" disabled?="{{ disabled }}" />
     </div>
   </template>

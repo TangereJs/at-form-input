@@ -4,26 +4,17 @@
 
 <polymer-element name="at-form-input">
   <template>
-    <style>
-      .customLabel{
-        padding-bottom: 5px;
-        font-weight: bold;
-        font-size: 1.1em;
-      }
-    </style>
     <at-core-theme></at-core-theme>
-    <div class="ui input {{ {fluid: fluid, error: !valid} | tokenList }}">
-      <div id="label" class="ui customLabel">{{ label }}</div>
-      <input id="input" name="{{ name }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" disabled?="{{ disabled }}" />
+    <div class="ui form">
+      <div class="field {{ {error: !valid} | tokenList }}">
+        <label id="label">{{ label }}</label>
+        <input id="input" name="{{ name }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" disabled?="{{ disabled }}" />
+      </div>
     </div>
   </template>
   <script>
     Polymer('at-form-input', {
       publish: {
-        fluid: {
-          value: false,
-          reflect: true
-        },
         value: {
           value: '',
           reflect: true

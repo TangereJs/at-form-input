@@ -2,8 +2,8 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+  <meta charset="utf-8" />
+  <title></title>
   <script src="/components/webcomponentsjs/webcomponents.js"></script>
   <link rel="import" href="/components/polymer/polymer.html" />
   <link rel="import" href="at-form-input.html" />
@@ -18,10 +18,13 @@
     <p>Use <b>type</b> property to set the input type</p>
   </div>
   <div>
-    <h4>Example 1: fixed width</h4>
+    <h4>Example 1: value echo</h4>
     <p>
-      <at-form-input name="pera" type="text" label="Fixed width" placeholder="This is placeholder..."></at-form-input>
+      <at-form-input id="first" name="pera" type="text" label="Value echo" placeholder="This is placeholder..."></at-form-input>
     </p>
+    <div>
+      <b>Value echo: </b><span id="valueEcho"></span>
+    </div>
   </div>
   <div>
     <h4>Example 2: fluid width</h4>
@@ -40,13 +43,20 @@
   <div>
     <h4>Example 4: disabled</h4>
     <p>Add attribute <b>disabled="true"</b> to make at-form-input disabled</p>
-    <p>Sadly, semantic-ui has no css for disabled state</p>
     <p>
       <at-form-input name="pera" type="text" label="This is disabled input" placeholder="this is placeholder..." disabled="true"></at-form-input>
     </p>
   </div>
   <script>
     document.addEventListener('polymer-ready', function () {
+      var firstAFI = document.getElementById('first');
+      var valueEcho = document.getElementById('valueEcho');
+      valueEcho.innerHTML = firstAFI.value;
+
+      var observer = new PathObserver(firstAFI, 'value');
+      observer.open(function (newValue, oldValue) {
+        valueEcho.innerHTML = newValue;
+      });
     });
   </script>
 </body>

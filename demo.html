@@ -1,13 +1,18 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html>
+
 <head>
-  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
   <title></title>
-  <script src="/components/webcomponentsjs/webcomponents.js"></script>
-  <link rel="import" href="/components/polymer/polymer.html" />
+  <script src="../webcomponentsjs/webcomponents.js"></script>
+  <link rel="import" href="../polymer/polymer.html">
   <link rel="import" href="at-form-input.html" />
 </head>
+
 <body>
   <div>
     <h3>This is demo for at-form-input</h3>
@@ -27,37 +32,34 @@
     </div>
   </div>
   <div>
-    <h4>Example 2: fluid width</h4>
-    <p>Add attribute <b>fluid="true"</b> to make at-form-input have fluid width</p>
+    <h4>Example 2: error</h4>
+    <p>Add <b>invalid</b> attribute to make at-form-input invalid</p>
     <p>
-      <at-form-input name="pera" type="text" label="This is fluid input" placeholder="this is placeholder..." fluid="true"></at-form-input>
+      <at-form-input name="pera" type="text" label="This is invalid input" placeholder="this is placeholder..." invalid></at-form-input>
     </p>
   </div>
   <div>
-    <h4>Example 3: error</h4>
-    <p>Set attribute <b>valid="false" </b> to make at-form-input invalid</p>
+    <h4>Example 3: disabled</h4>
+    <p>Add <b>disabled</b> attribute to make at-form-input disabled</p>
     <p>
-      <at-form-input name="pera" type="text" label="This is invalid input" placeholder="this is placeholder..." valid="false"></at-form-input>
-    </p>
-  </div>
-  <div>
-    <h4>Example 4: disabled</h4>
-    <p>Add attribute <b>disabled="true"</b> to make at-form-input disabled</p>
-    <p>
-      <at-form-input name="pera" type="text" label="This is disabled input" placeholder="this is placeholder..." disabled="true"></at-form-input>
+      <at-form-input name="pera" type="text" label="This is disabled input" placeholder="this is placeholder..." disabled></at-form-input>
     </p>
   </div>
   <script>
-    document.addEventListener('polymer-ready', function () {
+    document.addEventListener('WebComponentsReady', function (e) {
+
       var firstAFI = document.getElementById('first');
       var valueEcho = document.getElementById('valueEcho');
       valueEcho.innerHTML = firstAFI.value;
-
-      var observer = new PathObserver(firstAFI, 'value');
-      observer.open(function (newValue, oldValue) {
-        valueEcho.innerHTML = newValue;
+      firstAFI.addEventListener('valueChanged', function (e) {
+        valueEcho.innerHTML = e.detail;
       });
     });
+
+    function echoValueChanged(e) {
+      debugger;
+    }
   </script>
 </body>
+
 </html>

@@ -1,50 +1,73 @@
-﻿
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="../at-core-theme/at-core-theme.html" />
 
-<polymer-element name="at-form-input">
+<dom-module id="at-form-input">
   <template>
     <at-core-theme></at-core-theme>
     <div class="ui form">
-      <div class="field {{ {error: !valid} | tokenList }}">
-        <label id="label">{{ label }}</label>
-        <input id="input" name="{{ name }}" type="{{ type }}" placeholder="{{ placeholder }}" value="{{ value }}" disabled?="{{ disabled }}" />
+      <div id="field" class="field">
+        <label id="label">{{label}}</label>
+        <input id="input" name$="{{name}}" type$="{{type}}" placeholder$="{{placeholder}}" value$="{{value}}" disabled$="{{disabled}}" />
       </div>
     </div>
   </template>
-  <script>
-    Polymer('at-form-input', {
-      publish: {
-        value: {
-          value: '',
-          reflect: true
-        },
-        name: {
-          value: '',
-          reflect: true
-        },
-        type: {
-          value: 'text',
-          reflect: true
-        },
-        disabled: {
-          value: false,
-          reflect: true
-        },
-        valid: {
-          value: true,
-          reflect: true
-        },
-        label: {
-          value: '',
-          reflect: true
-        },
-        placeholder: {
-          value: '',
-          reflect: true
-        }
+</dom-module>
+
+<script>
+  "use strict";
+  Polymer({
+    is: 'at-form-input',
+    properties: {
+      value: {
+        type: String,
+        value: '',
+        reflect: true,
+        observer: 'valueChanged'
       },
-      ready: function () { }
-    });
-  </script>
-</polymer-element>
+      name: {
+        type: String,
+        value: '',
+        reflect: true
+      },
+      type: {
+        type: String,
+        value: 'text',
+        reflect: true
+      },
+      disabled: {
+        type: Boolean,
+        value: false,
+        reflect: true
+      },
+      invalid: {
+        type: Boolean,
+        value: false,
+        reflect: true,
+        observer: 'invalidChanged'
+      },
+      label: {
+        type: String,
+        value: '',
+        reflect: true
+      },
+      placeholder: {
+        type: String,
+        value: '',
+        reflect: true
+      }
+    },
+    ready: function () {
+      var _self = this;
+      this.$.input.addEventListener('change', function (e) {
+        _self.value = _self.$.input.value;
+      });
+
+    },
+    invalidChanged: function (newValue, oldValue) {
+      this.toggleClass('error', newValue, this.$.field);
+    },
+    valueChanged: function (newValue, oldValue) {
+      this.fire('valueChanged', newValue);
+    }
+  });
+</script>

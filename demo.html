@@ -51,8 +51,8 @@
       var firstAFI = document.getElementById('first');
       var valueEcho = document.getElementById('valueEcho');
       valueEcho.innerHTML = firstAFI.value;
-      firstAFI.addEventListener('valueChanged', function (e) {
-        valueEcho.innerHTML = e.detail;
+      firstAFI.addEventListener('value-changed', function (e) {        
+        valueEcho.innerHTML = e.detail.value;
       });
     });
 

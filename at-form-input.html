@@ -21,53 +21,51 @@
       value: {
         type: String,
         value: '',
-        reflect: true,
-        observer: 'valueChanged'
+        reflectToAttribute: true,
+        notify: true
       },
       name: {
         type: String,
         value: '',
-        reflect: true
+        reflectToAttribute: true,
+        notify: true
       },
       type: {
         type: String,
         value: 'text',
-        reflect: true
+        reflectToAttribute: true
       },
       disabled: {
         type: Boolean,
         value: false,
-        reflect: true
+        reflectToAttribute: true
       },
       invalid: {
         type: Boolean,
         value: false,
-        reflect: true,
-        observer: 'invalidChanged'
+        reflectToAttribute: true,
+        observer: 'invalidChanged',
+        notify: true
       },
       label: {
         type: String,
         value: '',
-        reflect: true
+        reflectToAttribute: true
       },
       placeholder: {
         type: String,
         value: '',
-        reflect: true
+        reflectToAttribute: true
       }
     },
     ready: function () {
       var _self = this;
-      this.$.input.addEventListener('change', function (e) {
+      this.$.input.addEventListener('change', function (e) {        
         _self.value = _self.$.input.value;
       });
-
     },
     invalidChanged: function (newValue, oldValue) {
       this.toggleClass('error', newValue, this.$.field);
-    },
-    valueChanged: function (newValue, oldValue) {
-      this.fire('valueChanged', newValue);
     }
   });
 </script>

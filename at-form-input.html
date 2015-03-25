@@ -22,7 +22,8 @@
         type: String,
         value: '',
         reflectToAttribute: true,
-        notify: true
+        notify: true,
+        observer: 'valueChanged'
       },
       name: {
         type: String,
@@ -63,6 +64,9 @@
       this.$.input.addEventListener('change', function (e) {        
         _self.value = _self.$.input.value;
       });
+    },
+    valueChanged: function(n,o) {
+      this.$.input.value = n;
     },
     invalidChanged: function (newValue, oldValue) {
       this.toggleClass('error', newValue, this.$.field);

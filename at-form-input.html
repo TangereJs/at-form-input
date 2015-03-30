@@ -13,64 +13,68 @@
   </template>
 
 
-<script>
-  "use strict";
-  Polymer({
-    is: 'at-form-input',
-    properties: {
-      value: {
-        type: String,
-        value: '',
-        reflectToAttribute: true,
-        notify: true,
-        observer: 'valueChanged'
+  <script>
+    "use strict";
+    Polymer({
+      is: 'at-form-input',
+      properties: {
+        value: {
+          type: String,
+          value: '',
+          reflectToAttribute: true,
+          notify: true,
+          observer: 'valueChanged'
+        },
+        name: {
+          type: String,
+          value: '',
+          reflectToAttribute: true,
+          notify: true
+        },
+        type: {
+          type: String,
+          value: 'text',
+          reflectToAttribute: true
+        },
+        disabled: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+        invalid: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true,
+          observer: 'invalidChanged',
+          notify: true
+        },
+        required: {
+          type: Boolean,
+          value: false
+        },
+        label: {
+          type: String,
+          value: '',
+          reflectToAttribute: true
+        },
+        placeholder: {
+          type: String,
+          value: '',
+          reflectToAttribute: true
+        }
       },
-      name: {
-        type: String,
-        value: '',
-        reflectToAttribute: true,
-        notify: true
+      ready: function () {
+        var _self = this;
+        this.$.input.addEventListener('change', function (e) {
+          _self.value = _self.$.input.value;
+        });
       },
-      type: {
-        type: String,
-        value: 'text',
-        reflectToAttribute: true
+      valueChanged: function (n, o) {
+        this.$.input.value = n;
       },
-      disabled: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true
-      },
-      invalid: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-        observer: 'invalidChanged',
-        notify: true
-      },
-      label: {
-        type: String,
-        value: '',
-        reflectToAttribute: true
-      },
-      placeholder: {
-        type: String,
-        value: '',
-        reflectToAttribute: true
+      invalidChanged: function (newValue, oldValue) {
+        this.toggleClass('error', newValue, this.$.field);
       }
-    },
-    ready: function () {
-      var _self = this;
-      this.$.input.addEventListener('change', function (e) {        
-        _self.value = _self.$.input.value;
-      });
-    },
-    valueChanged: function(n,o) {
-      this.$.input.value = n;
-    },
-    invalidChanged: function (newValue, oldValue) {
-      this.toggleClass('error', newValue, this.$.field);
-    }
-  });
-</script>
+    });
+  </script>
 </dom-module>

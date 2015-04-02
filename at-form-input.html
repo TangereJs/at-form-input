@@ -71,6 +71,10 @@
       },
       valueChanged: function (n, o) {
         this.$.input.value = n;
+        this.updateValidState();
+      },
+      updateValidState: function () {
+        this.invalid = this.required && (this.value === undefined || this.value === '');
       },
       invalidChanged: function (newValue, oldValue) {
         this.toggleClass('error', newValue, this.$.field);

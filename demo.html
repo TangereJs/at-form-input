@@ -33,9 +33,9 @@
   </div>
   <div>
     <h4>Example 2: error</h4>
-    <p>Add <b>invalid</b> attribute to make at-form-input invalid</p>
+    <p>Add <b>required</b> attribute to make at-form-input required</p>
     <p>
-      <at-form-input name="pera" type="text" label="This is invalid input" placeholder="this is placeholder..." invalid></at-form-input>
+      <at-form-input name="pera" type="text" label="This is required input" placeholder="this is placeholder..." required></at-form-input>
     </p>
   </div>
   <div>
@@ -51,7 +51,7 @@
       var firstAFI = document.getElementById('first');
       var valueEcho = document.getElementById('valueEcho');
       valueEcho.innerHTML = firstAFI.value;
-      firstAFI.addEventListener('value-changed', function (e) {        
+      firstAFI.addEventListener('value-changed', function (e) {
         valueEcho.innerHTML = e.detail.value;
       });
     });

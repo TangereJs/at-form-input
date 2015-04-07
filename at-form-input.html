@@ -37,10 +37,11 @@
           value: false,
           observer: 'disabledChanged'
         },
-        invalid: {
+        valid: {
           type: Boolean,
-          value: false,
-          observer: 'invalidChanged',
+          value: true,
+          observer: 'validChanged',
+          readOnly: true,
           notify: true
         },
         required: {
@@ -68,10 +69,11 @@
         this.updateValidState();
       },
       updateValidState: function () {
-        this.invalid = this.required && (this.value === undefined || this.value === '');
+        var newValue = this.required ? (this.value !== undefined && this.value !== '') : true;
+        this._setValid(newValue);
       },
-      invalidChanged: function (newValue, oldValue) {
-        this.toggleClass('error', newValue, this.$.field);
+      validChanged: function (newValue, oldValue) {
+        this.toggleClass('error', !newValue, this.$.field);
       },
       requiredChanged: function () {
         this.updateValidState();

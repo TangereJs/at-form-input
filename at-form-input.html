@@ -21,46 +21,40 @@
         value: {
           type: String,
           value: '',
-          reflectToAttribute: true,
           notify: true,
           observer: 'valueChanged'
         },
         name: {
           type: String,
-          value: '',
-          reflectToAttribute: true,
-          notify: true
+          value: ''
         },
         type: {
           type: String,
-          value: 'text',
-          reflectToAttribute: true
+          value: 'text'
         },
         disabled: {
           type: Boolean,
           value: false,
-          reflectToAttribute: true
+          observer: 'disabledChanged'
         },
         invalid: {
           type: Boolean,
           value: false,
-          reflectToAttribute: true,
           observer: 'invalidChanged',
           notify: true
         },
         required: {
           type: Boolean,
-          value: false
+          value: false,
+          observer: 'requiredChanged'
         },
         label: {
           type: String,
-          value: '',
-          reflectToAttribute: true
+          value: ''
         },
         placeholder: {
           type: String,
-          value: '',
-          reflectToAttribute: true
+          value: ''
         }
       },
       ready: function () {
@@ -78,6 +72,16 @@
       },
       invalidChanged: function (newValue, oldValue) {
         this.toggleClass('error', newValue, this.$.field);
+      },
+      requiredChanged: function () {
+        this.updateValidState();
+      },
+      disabledChanged: function () {
+        if (this.disabled) {
+          this.$.input.setAttribute('disabled', 'true');
+        } else {
+          this.$.input.removeAttribute('disabled');
+        }
       }
     });
   </script>

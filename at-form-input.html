@@ -100,6 +100,10 @@
         this.$.input.addEventListener('change', function (e) {
           _self.value = _self.$.input.value;
         });
+        this.$.input.addEventListener('blur', function (e) {
+          _self.value = _self.$.input.value;
+          _self.validate();
+        });
         // update the initial valid state of the element
         // if the element is required but empty valid state should be false
         // but no visual indication should be shown

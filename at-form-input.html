@@ -7,7 +7,7 @@
     <div class="ui form">
       <div id="field" class="field">
         <label id="label">{{label}}</label>
-        <input id="input" name$="{{name}}" type$="{{type}}" placeholder$="{{placeholder}}" disabled$={{disabled}} />
+        <input id="input" name$="{{name}}" type$="{{type}}" placeholder$="{{placeholder}}" />
       </div>
     </div>
   </template>
@@ -57,7 +57,8 @@
        */
       disabled: {
         type: Boolean,
-        value: false
+        value: false,
+        observer: 'disabledChanged'
       },
 
       /*
@@ -110,6 +111,15 @@
       this._updateValidState();
 
       this._isReady = true;
+    },
+
+    disabledChanged: function () {
+      this.toggleAttribute('disabled', this.disabled, this.$.input);
+      if (this.disabled) {
+        this.toggleClass('error', false, this.$.field);
+      } else {
+        this.toggleClass('error', !this.valid, this.$.field);
+      }
     },
 
     valueChanged: function (newValue, oldValue) {

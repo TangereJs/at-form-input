@@ -96,12 +96,12 @@
 
     _isReady: false,
     _scopeCssViaAttr: true,
-    ready: function () {
+    ready: function() {
       var _self = this;
-      this.$.input.addEventListener('change', function (e) {
+      this.$.input.addEventListener('change', function(e) {
         _self.value = _self.$.input.value;
       });
-      this.$.input.addEventListener('blur', function (e) {
+      this.$.input.addEventListener('blur', function(e) {
         _self.value = _self.$.input.value;
         _self.validate();
       });
@@ -113,7 +113,7 @@
       this._isReady = true;
     },
 
-    disabledChanged: function () {
+    disabledChanged: function() {
       this.toggleAttribute('disabled', this.disabled, this.$.input);
       if (this.disabled) {
         this.toggleClass('error', false, this.$.field);
@@ -122,19 +122,17 @@
       }
     },
 
-    valueChanged: function (newValue, oldValue) {
-      if (this._isReady) {
-        this.$.input.value = newValue;
-        // when value changes due to user input or its changed programmatically
-        // valid state should be updated and visual indication displayed
-        this.validate();
-      }
+    valueChanged: function(newValue, oldValue) {
+      this.$.input.value = newValue;
+      // when value changes due to user input or its changed programmatically
+      // valid state should be updated and visual indication displayed
+      this.validate();
     },
 
     /*
      * This function updates the element's valid state without showing the visual indication
      */
-    _updateValidState: function () {
+    _updateValidState: function() {
       var valueToValidate = this.value.trim ? this.value.trim() : this.value;
       var validState = this.required ? valueToValidate !== '' : true;
 
@@ -146,7 +144,7 @@
     /*
      * This function updates the element's valid state and shows the visual indication if needed
      */
-    validate: function () {
+    validate: function() {
       var validState = this._updateValidState();
       this.toggleClass('error', !validState, this.$.field);
       return validState;

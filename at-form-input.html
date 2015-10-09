@@ -99,9 +99,11 @@
     ready: function() {
       var _self = this;
       this.$.input.addEventListener('change', function(e) {
+        e.stopPropagation();
         _self.value = _self.$.input.value;
       });
       this.$.input.addEventListener('blur', function(e) {
+        e.stopPropagation();
         _self.value = _self.$.input.value;
         _self.validate();
       });

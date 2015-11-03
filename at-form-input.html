@@ -143,6 +143,10 @@
       }
     },
 
+    focus: function () {
+        this.$.input.focus();
+    },
+
     valueChanged: function(newValue, oldValue) {
       this.$.input.value = newValue;
       // when value changes due to user input or its changed programmatically

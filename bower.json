@@ -1,5 +1,5 @@
 {
-  "name": "at-form-password",
+  "name": "at-form-input",
   "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#0.8-preview",

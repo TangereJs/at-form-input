@@ -11,6 +11,7 @@ at-form-input represents an input element on the form
     .hide-label {
       display: none;
     }
+
     #labelContainer > label {
       font-weight: bold;
     }
@@ -32,6 +33,15 @@ at-form-input represents an input element on the form
   "use strict";
   Polymer({
     is: 'at-form-input',
+    /**
+     * Fired when value of the element changes
+     * @event value-changed
+     */
+
+    /**
+     * Fired when valid state of the element changes
+     * @event valid-changed
+     */
     properties: {
       /**
        * Element's required status for element validation purposes
@@ -40,6 +50,8 @@ at-form-input represents an input element on the form
        * observer: 'valueChanged' outside world should be able to set/update the element's value
        * component is notified about this via valueChanged callback function
        * @property value
+       * @type String
+       * @default empty
        */
       value: {
         type: String,
@@ -49,6 +61,8 @@ at-form-input represents an input element on the form
       },
       /**
        * @property hideTitle
+       * @type Boolean
+       * @default false
        */
       hideTitle: {
         type: Boolean,
@@ -61,6 +75,8 @@ at-form-input represents an input element on the form
        * notify: true - outside world should be notified when element's valid state changes
        * readOnly: true - outside world is not able to change element's status since its element's internal state
        * @property valid
+       * @type Boolean
+       * @default true
        */
       valid: {
         type: Boolean,
@@ -72,6 +88,8 @@ at-form-input represents an input element on the form
       /**
        * Element's required state for element validation purposes
        * @property required
+       * @type Boolean
+       * @default false
        */
       required: {
         type: Boolean,
@@ -81,6 +99,8 @@ at-form-input represents an input element on the form
       /**
        * Element's disabled state
        * @property disabled
+       * @type Boolean
+       * @default false
        */
       disabled: {
         type: Boolean,
@@ -91,6 +111,8 @@ at-form-input represents an input element on the form
       /**
        * Element's name for form submission purposes
        * @property name
+       * @type String
+       * @default empty
        */
       name: {
         type: String,
@@ -100,6 +122,8 @@ at-form-input represents an input element on the form
       /**
        * Element's type for element display and validation purposes
        * @property type
+       * @type String
+       * @default text
        */
       type: {
         type: String,
@@ -109,6 +133,8 @@ at-form-input represents an input element on the form
       /**
        * Element's label for element display purposes
        * @property label
+       * @type String
+       * @default empty
        */
       label: {
         type: String,
@@ -118,6 +144,8 @@ at-form-input represents an input element on the form
       /**
        * Element's placeholder text for element display purposes
        * @property placeholder
+       * @type String
+       * @default empty
        */
       placeholder: {
         type: String,
@@ -135,6 +163,7 @@ at-form-input represents an input element on the form
     },
     /**
      * @method ready
+     * @return nothing
      */
     ready: function() {
       var _self = this;
@@ -156,8 +185,11 @@ at-form-input represents an input element on the form
     },
     /**
      * @method disabledChanged
+     * @param {Boolean} newValue new disabled value
+     * @param {Boolean} oldValue previous disabled value
+     * @return {undefined} nothing
      */
-    disabledChanged: function() {
+    disabledChanged: function(newValue, oldValue) {
       this.toggleAttribute('disabled', this.disabled, this.$.input);
       if (this.disabled) {
         this.toggleClass('error', false, this.$.field);
@@ -168,8 +200,8 @@ at-form-input represents an input element on the form
     /**
      * @method focus
      */
-    focus: function () {
-        this.$.input.focus();
+    focus: function() {
+      this.$.input.focus();
     },
     /**
      * @method valueChanged
@@ -181,9 +213,10 @@ at-form-input represents an input element on the form
       this.validate();
     },
 
-    /*
+    /**
      * This function updates the element's valid state without showing the visual indication
      * @method _updateValidState
+     * @return {boolean} valid state
      */
     _updateValidState: function() {
       var valueToValidate = this.value.trim ? this.value.trim() : this.value;

@@ -1,0 +1,64 @@
+<link rel="import" href="../at-form-text/at-form-text.html">
+<link rel="import" href="../at-form-checkbox/at-form-checkbox.html">
+<link rel="import" href="../at-form-password/at-form-password.html">
+<link rel="import" href="../at-form-number/at-form-number.html">
+<link rel="import" href="../at-form-file/at-form-file.html">
+<link rel="import" href="../at-form-image/at-form-image.html">
+<link rel="import" href="../at-form-date/at-form-date.html">
+<link rel="import" href="../at-form-daterange/at-form-daterange.html">
+<link rel="import" href="../at-form-codemirror/at-form-codemirror.html">
+<link rel="import" href="../at-form-markdown/at-form-markdown.html">
+<link rel="import" href="../at-form-lookup/at-form-lookup.html">
+<link rel="import" href="../at-form-radio/at-form-radio.html">
+
+<dom-module id="breaking-value-changed">
+  <style>
+
+  </style>
+  <template>
+    <div>
+      <h4>How polymer 1.2 breaks value-changed event</h4>
+      <p>
+
+      </p>
+    </div>
+    <div id="insertPoint">
+
+    </div>
+  </template>
+  <script>
+    'use strict';
+    Polymer({
+      is: 'breaking-value-changed',
+      properties: {
+        value: {
+          type: String,
+          value: '',
+          notify: true
+        }
+      },
+      _scopeCssViaAttr: true,
+      ready: function() {
+        var insertPoint = this.$.insertPoint;
+        var atInputContainer = document.createElement('div');
+        var atInput = document.createElement('at-form-checkbox');
+        atInput.valuelist = "XML,JSON,HTML,HTML7";
+        var self = this;
+
+        self.value = atInput.value;
+        atInput.addEventListener('value-changed', function(event) {
+          // all righty, here is the deal
+          // as of polymer > 1.2.0 (so far 1.2.1, 1.2.2 and 1.2.3) calling event.stopPropagation() will stop event from triggering ever-again
+          // event will trigger only once, and after that no more; that is the bug (or maybe a fix for a bug, I'm not sure)
+          // anyway, when you leave this uncommented event will trigger once and no more after that
+          // if you comment this line event will trigger each time atInput value changes
+          // I have observed that this only holds true for Polymer.CustomEvents; HTMLEvents like click or blur work just fine
+          event.stopPropagation();
+          self.value = atInput.value;
+        });
+        Polymer.dom(atInputContainer).appendChild(atInput);
+        Polymer.dom(insertPoint).appendChild(atInputContainer);
+      }
+    });
+  </script>
+</dom-module>

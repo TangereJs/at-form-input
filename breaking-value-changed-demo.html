@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>breaking value changed</title>
+  <script src="../webcomponentsjs/webcomponents-lite.js" charset="utf-8"></script>
+  <link rel="import" href="../polymer/polymer.html">
+  <link rel="import" href="breaking-value-changed.html">
+</head>
+
+<body>
+  <div>
+    <breaking-value-changed id="breakingValueChanged"></breaking-value-changed>
+  </div>
+  <div>
+    <p id="valueEcho">
+
+    </p>
+  </div>
+  <script>
+    document.addEventListener('WebComponentsReady', function(event) {
+      var breakingValueChanged = document.getElementById('breakingValueChanged');
+      var valueEcho = document.getElementById('valueEcho');
+
+      valueEcho.innerHTML = breakingValueChanged.value;
+      breakingValueChanged.addEventListener('value-changed', function(event) {
+        // before reading here read 1. and 2. in breaking-value-changed.html
+        // 3. calling event.stopPropagation() here doesn't affect event execution
+        // test with uncommented and commented line and you shall see
+        event.stopPropagation();
+        valueEcho.innerHTML = breakingValueChanged.value;
+      });
+    });
+  </script>
+</body>
+
+</html>

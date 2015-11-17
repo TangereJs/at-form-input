@@ -48,9 +48,9 @@
         self.value = atInput.value;
         atInput.addEventListener('value-changed', function(event) {
           // all righty, here is the deal
-          // as of polymer > 1.2.0 (so far 1.2.1, 1.2.2 and 1.2.3) calling event.stopPropagation() will stop event from triggering ever-again
+          // 1. as of polymer > 1.2.0 (so far 1.2.1, 1.2.2 and 1.2.3) calling event.stopPropagation() will stop event from triggering ever-again
           // event will trigger only once, and after that no more; that is the bug (or maybe a fix for a bug, I'm not sure)
-          // anyway, when you leave this uncommented event will trigger once and no more after that
+          // 2. anyway, when you leave this uncommented event will trigger once and no more after that
           // if you comment this line event will trigger each time atInput value changes
           // I have observed that this only holds true for Polymer.CustomEvents; HTMLEvents like click or blur work just fine
           event.stopPropagation();

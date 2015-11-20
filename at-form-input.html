@@ -60,14 +60,14 @@ at-form-input represents an input element on the form
         observer: 'valueChanged'
       },
       /**
-       * @property hideTitle
+       * @property hideLabel
        * @type Boolean
        * @default false
        */
-      hideTitle: {
+      hideLabel: {
         type: Boolean,
         value: false,
-        observer: 'hideTitleChanged'
+        observer: 'hideLabelChanged'
       },
 
       /**
@@ -156,9 +156,9 @@ at-form-input represents an input element on the form
     _isReady: false,
     _scopeCssViaAttr: true,
     /**
-     * @method hideTitleChanged
+     * @method hideLabelChanged
      */
-    hideTitleChanged: function(newValue, oldValue) {
+    hideLabelChanged: function(newValue, oldValue) {
       this.toggleClass("hide-label", newValue, this.$.labelContainer);
     },
     /**
